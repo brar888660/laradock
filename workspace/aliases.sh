@@ -115,6 +115,8 @@ alias gbr="git branch"
 alias gc="git commit"
 alias gck="git checkout"
 
+alias pa="php artisan"
+
 # Create a new directory and enter it
 function mkd() {
     mkdir -p "$@" && cd "$@"
