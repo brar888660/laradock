@@ -85,9 +85,28 @@ ENV TZ ${TZ}
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+##########################################################################
+#zsh
+##########################################################################
+USER root
+
+RUN apt-get update;\
+    apt-get -y install zsh ;\
+    usermod -s /usr/bin/zsh laradock;\
+    usermod -s /usr/bin/zsh root
+
+RUN apt-get -y install wget;
+
+RUN  wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+
+
+USER laradock
+RUN  wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+
 ###########################################################################
 # User Aliases
 ###########################################################################
+
 
 USER root
 
@@ -100,14 +119,27 @@ RUN sed -i 's/\r//' /root/aliases.sh && \
     echo "" >> ~/.bashrc && \
     echo "# Load Custom Aliases" >> ~/.bashrc && \
     echo "source ~/aliases.sh" >> ~/.bashrc && \
-	  echo "" >> ~/.bashrc
+          echo "" >> ~/.bashrc
+
+RUN sed -i 's/\r//' /root/aliases.sh && \
+    sed -i 's/\r//' /home/laradock/aliases.sh && \
+    chown laradock:laradock /home/laradock/aliases.sh && \
+    echo "" >> ~/.zshrc && \
+    echo "# Load Custom Aliases" >> ~/.zshrc && \
+    echo "source ~/aliases.sh" >> ~/.zshrc && \
+          echo "" >> ~/.zshrc
 
 USER laradock
 
 RUN echo "" >> ~/.bashrc && \
     echo "# Load Custom Aliases" >> ~/.bashrc && \
     echo "source ~/aliases.sh" >> ~/.bashrc && \
-	  echo "" >> ~/.bashrc
+          echo "" >> ~/.bashrc
+
+RUN echo "" >> ~/.zshrc && \
+    echo "# Load Custom Aliases" >> ~/.zshrc && \
+    echo "source ~/aliases.sh" >> ~/.zshrc && \
+          echo "" >> ~/.zshrc
 
 ###########################################################################
 # Composer:
@@ -1013,17 +1045,6 @@ RUN set -xe; php -v | head -n 1 | grep -q "PHP ${LARADOCK_PHP_VERSION}."
 # Final Touch
 #--------------------------------------------------------------------------
 #
-
-USER root
-
-RUN apt-get update;\
-    apt-get -y install zsh ;\
-    usermod -s /usr/bin/zsh laradock
-
-RUN apt-get -y install wget;
-
-USER laradock
-RUN  wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 
 USER root
 
