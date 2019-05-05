@@ -1016,6 +1016,17 @@ RUN set -xe; php -v | head -n 1 | grep -q "PHP ${LARADOCK_PHP_VERSION}."
 
 USER root
 
+RUN apt-get update;\
+    apt-get -y install zsh ;\
+    usermod -s /usr/bin/zsh laradock
+
+RUN apt-get -y install wget;
+
+USER laradock
+RUN  wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+
+USER root
+
 # Clean up
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
