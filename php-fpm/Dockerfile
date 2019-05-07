@@ -628,6 +628,34 @@ RUN if [ ${INSTALL_MYSQL_CLIENT} = true ]; then \
 ;fi
 
 ###########################################################################
+# Decimal:
+###########################################################################
+
+USER root
+
+ARG PHP_FPM_INSTALL_DECIMAL=true
+
+RUN if [ ${PHP_FPM_INSTALL_DECIMAL} = true ]; then \
+    apt-get -y install libmpdec-dev && \
+    pecl install decimal && \
+    echo "extension=decimal.so" > /usr/local/etc/php/conf.d/decimal.ini \
+;fi
+
+
+###########################################################################
+# Decimal:
+###########################################################################
+
+USER root
+
+ARG PHP_FPM_INSTALL_DECIMAL=true
+
+RUN if [ ${PHP_FPM_INSTALL_DECIMAL} = true ]; then \
+
+    echo "extension=decimal.so" > /usr/local/etc/php/conf.d/decimal.ini \
+;fi
+
+###########################################################################
 # Check PHP version:
 ###########################################################################
 

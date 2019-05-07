@@ -1023,6 +1023,21 @@ RUN if [ ${INSTALL_MYSQL_CLIENT} = true ]; then \
 ;fi
 
 ###########################################################################
+# Decimal:
+###########################################################################
+
+USER root
+
+ARG WORKSPACE_INSTALL_DECIMAL=true
+
+RUN if [ ${WORKSPACE_INSTALL_DECIMAL} = true ]; then \
+    apt-get update -yqq && \
+    apt-get -y install libmpdec-dev && \
+    pecl install decimal && \
+    echo "extension=decimal.so" > /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/decimal.ini \
+;fi
+
+###########################################################################
 # FFMpeg:
 ###########################################################################
 
