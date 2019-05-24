@@ -116,8 +116,10 @@ services:
         - "dockerhost:${DOCKER_HOST_IP}"
       ports:
         - "${WORKSPACE_SSH_PORT}:22"
+        - "9527:9527"  
       tty: true
       environment:
+        - CHOKIDAR_USEPOLLING=false
         - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
         - DOCKER_HOST=tcp://docker-in-docker:2375
       networks:
