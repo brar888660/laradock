@@ -115,8 +115,7 @@ services:
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       ports:
-        - "${WORKSPACE_SSH_PORT}:22"
-        - "9527:9527"  
+        - "${WORKSPACE_SSH_PORT}:22"  
       tty: true
       environment:
         - CHOKIDAR_USEPOLLING=false
