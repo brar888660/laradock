@@ -8,8 +8,8 @@ server {
     # ssl_certificate /etc/nginx/ssl/default.crt;
     # ssl_certificate_key /etc/nginx/ssl/default.key;
 
-    server_name hgbapi2.app.com;
-    root /var/www/HGBAPI2/public;
+    server_name local.web.ticket-company.com.tw;
+    root /var/www/damai/ticket-company;
     index index.php index.html index.htm;
 
     location / {
